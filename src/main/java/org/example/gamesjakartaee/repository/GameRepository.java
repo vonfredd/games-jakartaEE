@@ -21,9 +21,10 @@ public class GameRepository {
     }
 
     @Transactional
-    public void insertGame(GameDTO gameDTO) {
+    public Long insertGame(GameDTO gameDTO) {
         Game game = GameDTO.map(gameDTO);
         entityManager.persist(game);
+        return game.getId();
     }
 
 }
