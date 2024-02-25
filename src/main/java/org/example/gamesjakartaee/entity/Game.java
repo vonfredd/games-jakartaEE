@@ -1,13 +1,12 @@
 package org.example.gamesjakartaee.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.util.Objects;
 
 @Entity
+@Table (name = "Game")
+@NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
