@@ -8,6 +8,7 @@ import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.entity.Game;
 
 import java.util.List;
+import java.util.UUID;
 
 @ApplicationScoped
 public class GameRepository {
@@ -21,7 +22,7 @@ public class GameRepository {
     }
 
     @Transactional
-    public Long insertGame(GameDTO gameDTO) {
+    public UUID insertGame(GameDTO gameDTO) {
         Game game = GameDTO.map(gameDTO);
         entityManager.persist(game);
         return game.getId();
