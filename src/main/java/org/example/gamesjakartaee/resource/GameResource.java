@@ -9,6 +9,7 @@ import org.example.gamesjakartaee.repository.GameRepository;
 
 import java.net.URI;
 import java.util.List;
+import java.util.UUID;
 
 @Path("/games")
 public class GameResource {
@@ -22,7 +23,6 @@ public class GameResource {
     public GameResource(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
-
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -41,7 +41,7 @@ public class GameResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(GameDTO gameDTO) {
         //save to database
-        Long id = gameRepository.insertGame(gameDTO);
+        UUID id = gameRepository.insertGame(gameDTO);
         return Response.created(
                         //Ask jakarta application server for hostname and url path
                         URI.create("http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games/" + id.toString()))
