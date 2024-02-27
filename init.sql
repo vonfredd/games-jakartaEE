@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS Game (
-    id BINARY(16) PRIMARY KEY AUTO_INCREMENT,
-    releaseDate INT NOT NULL,
-    name VARCHAR(255)
-    );
