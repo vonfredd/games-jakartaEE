@@ -9,8 +9,9 @@ import java.util.UUID;
 @Table (name = "Game")
 @NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
 public class Game {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private UUID id;
     private String name;
     private int releaseDate;
