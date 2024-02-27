@@ -24,8 +24,10 @@ public class GameRepository {
     @Transactional
     public UUID insertGame(GameDTO gameDTO) {
         Game game = GameDTO.map(gameDTO);
-        entityManager.persist(game);
-        return game.getId();
+        game.setId(UUID.randomUUID());
+        Game managedGame = entityManager.merge(game);
+        entityManager.persist(managedGame);
+        return managedGame.getId();
     }
 
 }
