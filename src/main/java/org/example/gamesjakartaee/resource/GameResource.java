@@ -1,6 +1,7 @@
 package org.example.gamesjakartaee.resource;
 
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -39,7 +40,7 @@ public class GameResource {
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response create(GameDTO gameDTO) {
+    public Response create(@Valid GameDTO gameDTO) {
         //save to database
         UUID id = gameRepository.insertGame(gameDTO);
         return Response.created(
