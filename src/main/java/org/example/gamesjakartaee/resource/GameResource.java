@@ -6,11 +6,12 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.dto.GameDTO;
+import org.example.gamesjakartaee.dto.Games;
 import org.example.gamesjakartaee.entity.Game;
 import org.example.gamesjakartaee.service.GameService;
 
 import java.net.URI;
-import java.util.List;
+import java.util.UUID;
 
 @Path("/games")
 public class GameResource {
@@ -25,32 +26,31 @@ public class GameResource {
         this.gameService = gameService;
     }
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GameDTO> findAll() {
-        return gameService.findAll();
+    public Games all() {
+        return gameService.all();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public Game one(@PathParam("id") Long id) {
-        return gameService.findById(id);
+    public GameDTO one(@PathParam("id") UUID id) {
+        return gameService.one(id);
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid GameDTO gameDTO) {
-        Long id = gameService.insertGame(gameDTO);
-        return Response.created(URI.create("http://localhost:8080/api/games/" + id)).build();
+        gameService.add(gameDTO);
+        return Response.status(201).build();
     }
 
     @PUT
-    @Path("/{id}")
-    public Response update(@PathParam("id") Long id, String name){
-        gameService.updateGame(id,name);
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces({MediaType.APPLICATION_JSON})
+    public Response update(UUID id, GameDTO updateInfo) {
+        gameService.update(id, updateInfo);
         return Response.ok().build();
-
     }
 }

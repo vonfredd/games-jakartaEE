@@ -1,19 +1,26 @@
 package org.example.gamesjakartaee.service;
 
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.dto.GameDTO;
+import org.example.gamesjakartaee.dto.Games;
 import org.example.gamesjakartaee.entity.Game;
 import org.example.gamesjakartaee.repository.GameRepository;
 
-import java.util.List;
+import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 @ApplicationScoped
 public class GameService {
+
     GameRepository gameRepository;
 
     public GameService() {
-
     }
 
     @Inject
@@ -21,21 +28,40 @@ public class GameService {
         this.gameRepository = gameRepository;
     }
 
-    public List<GameDTO> findAll() {
-        return gameRepository.findAll();
+
+    public Games all() {
+        return new Games(
+                gameRepository.all().stream().map(GameDTO::map).toList(),
+                LocalDateTime.now());
     }
 
-    public Long insertGame(GameDTO gameDTO) {
-        return gameRepository.insertGame(GameDTO.map(gameDTO));
+    public GameDTO one(UUID id) {
+        Optional<Game> game = gameRepository.findById(id);
+        if (game.isPresent()) {
+            return GameDTO.map(game.get());
+        } else
+            throw new NotFoundException();
     }
 
-    public void updateGame(Long id, String name) {
-        Game game = gameRepository.findGameById(id);
-        game.setName(name);
-        gameRepository.updateGame(game);
+    public UUID add(GameDTO personDto) {
+        return gameRepository.add(GameDTO.map(personDto)).getId();
     }
 
-    public Game findById(Long id) {
-        return gameRepository.findGameById(id);
+    public Response update(UUID id, GameDTO updateData) {
+
+        Optional<Game> optionalGame = gameRepository.findById(id);
+
+        if (optionalGame.isPresent()) {
+            Game game = optionalGame.get();
+            checkOnNull(game::setName, updateData.name());
+            checkOnNull(game::setReleaseYear, updateData.releaseYear());
+            gameRepository.update(game);
+            return Response.ok().build();
+        } else
+            return Response.status(Response.Status.NOT_FOUND).build();
+    }
+
+    private <T> void checkOnNull(Consumer<T> consumer, T value) {
+        if (value != null) consumer.accept(value);
     }
 }

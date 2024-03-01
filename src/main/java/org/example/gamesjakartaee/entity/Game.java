@@ -11,19 +11,16 @@ import java.util.UUID;
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "name")
+    @GeneratedValue
+    private UUID id;
     private String name;
-    @Column(name = "release_date")
-    private int releaseDate;
+    private int releaseYear;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
@@ -35,12 +32,12 @@ public class Game {
         this.name = name;
     }
 
-    public int getReleaseDate() {
-        return releaseDate;
+    public int getReleaseYear() {
+        return releaseYear;
     }
 
-    public void setReleaseDate(int releaseDate) {
-        this.releaseDate = releaseDate;
+    public void setReleaseYear(int releaseDate) {
+        this.releaseYear = releaseDate;
     }
 
     @Override
