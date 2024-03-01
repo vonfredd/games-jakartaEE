@@ -6,7 +6,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Entity
-@Table (name = "Game")
 @NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
 public class Game {
 

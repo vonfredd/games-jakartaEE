@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.entity.Game;
 
 import java.util.List;
@@ -16,18 +15,20 @@ public class GameRepository {
     @PersistenceContext(name = "mysql")
     private EntityManager entityManager;
 
-    public List<GameDTO> findAll(){
-        return entityManager.createNamedQuery("GameEntity.findAll", GameDTO.class)
+    public List<Game> all(){
+        return entityManager.createNamedQuery("GameEntity.findAll", Game.class)
                 .getResultList();
     }
 
     @Transactional
-    public UUID insertGame(GameDTO gameDTO) {
-        Game game = GameDTO.map(gameDTO);
+    public Game add(Game game) {
         game.setId(UUID.randomUUID());
-        Game managedGame = entityManager.merge(game);
-        entityManager.persist(managedGame);
-        return managedGame.getId();
+        entityManager.persist(game);
+        return game;
+    }
+
+    public Game findById(long id) {
+        return entityManager.find(Game.class, id);
     }
 
 }
