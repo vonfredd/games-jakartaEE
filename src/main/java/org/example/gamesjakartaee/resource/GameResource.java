@@ -40,11 +40,17 @@ public class GameResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(GameDTO gameDTO) {
-        //save to database
         Long id = gameRepository.insertGame(gameDTO);
         return Response.created(
-                        //Ask jakarta application server for hostname and url path
                         URI.create("http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games/" + id.toString()))
                 .build();
+    }
+
+    @PUT
+    public Response update(@PathParam("{id},{name}") Long id, String name){
+        gameRepository.updateGame(id,name);
+        return Response.created(URI.create("http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games/" + id.toString()))
+                .build();
+
     }
 }
