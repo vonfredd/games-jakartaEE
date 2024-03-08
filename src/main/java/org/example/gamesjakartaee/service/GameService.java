@@ -11,7 +11,6 @@ public class GameService {
     @Inject
     GameRepository gameRepository;
 
-
     public List<GameDTO> findAll() {
         return gameRepository.findAll();
     }
