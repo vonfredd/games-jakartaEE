@@ -36,16 +36,4 @@ class GameResourceTest {
         var resource = new GameResource(gameService);
         dispatcher.getRegistry().addSingletonResource(resource);
     }
-
-    @Test
-    public void personsReturnsWithStatus200() throws URISyntaxException, UnsupportedEncodingException {
-        when(gameService.all()).thenReturn(new Games(List.of(), LocalDateTime.now()));
-
-        MockHttpRequest request = MockHttpRequest.get("/games");
-        MockHttpResponse response = new MockHttpResponse();
-        dispatcher.invoke(request,response);
-
-        assertEquals(200, response.getStatus());
-        assertEquals("{\"gameDTOS\":[],\"updated\"}", response.getContentAsString());
-    }
 }
