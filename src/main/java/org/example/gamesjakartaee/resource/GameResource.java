@@ -13,6 +13,7 @@ import java.util.List;
 @Path("/games")
 public class GameResource {
 
+    @Inject
     private GameRepository gameRepository;
 
     public GameResource() {
@@ -47,10 +48,10 @@ public class GameResource {
     }
 
     @PUT
-    public Response update(@PathParam("{id},{name}") Long id, String name){
+    @Path("/{id}")
+    public Response update(@PathParam("id") Long id, String name){
         gameRepository.updateGame(id,name);
-        return Response.created(URI.create("http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games/" + id.toString()))
-                .build();
+        return Response.ok().build();
 
     }
 }
