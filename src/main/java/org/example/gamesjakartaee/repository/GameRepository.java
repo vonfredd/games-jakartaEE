@@ -21,20 +21,17 @@ public class GameRepository {
     }
 
     @Transactional
-    public Long insertGame(GameDTO gameDTO) {
-        Game game = GameDTO.map(gameDTO);
+    public Long insertGame(Game game) {
         entityManager.persist(game);
         return game.getId();
     }
 
     @Transactional
-    public Long updateGame(Long id, String name) {
-        Game game = findGameById(id);
-        game.setName(name);
-        return game.getId();
+    public void updateGame(Game game) {
+        entityManager.merge(game);
     }
 
-    private Game findGameById(Long id){
+    public Game findGameById(Long id){
         return entityManager.find(Game.class, id);
     }
 }
