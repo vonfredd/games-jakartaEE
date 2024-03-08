@@ -7,6 +7,7 @@ import java.util.Objects;
 @Entity
 @Table (name = "Game")
 @NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
+@NamedQuery(name = "GameEntity.findById", query = "SELECT g FROM Game g WHERE g.id = :id")
 public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
