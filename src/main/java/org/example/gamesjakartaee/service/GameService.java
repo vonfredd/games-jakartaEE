@@ -1,5 +1,6 @@
 package org.example.gamesjakartaee.service;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.entity.Game;
@@ -7,9 +8,18 @@ import org.example.gamesjakartaee.repository.GameRepository;
 
 import java.util.List;
 
+@ApplicationScoped
 public class GameService {
     @Inject
     GameRepository gameRepository;
+
+    public GameService (){
+
+    }
+
+    public GameService(GameRepository gameRepository) {
+        this.gameRepository = gameRepository;
+    }
 
     public List<GameDTO> findAll() {
         return gameRepository.findAll();

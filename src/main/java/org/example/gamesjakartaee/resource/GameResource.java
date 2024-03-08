@@ -44,9 +44,7 @@ public class GameResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid GameDTO gameDTO) {
         Long id = gameService.insertGame(gameDTO);
-        return Response.created(
-                        URI.create("http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games/" + id.toString()))
-                .build();
+        return Response.created(URI.create("http://localhost:8080/api/games/" + id)).build();
     }
 
     @PUT
