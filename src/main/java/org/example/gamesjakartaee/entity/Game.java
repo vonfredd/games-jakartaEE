@@ -3,23 +3,24 @@ package org.example.gamesjakartaee.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
-@Table (name = "Game")
 @NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
 @NamedQuery(name = "GameEntity.findById", query = "SELECT g FROM Game g WHERE g.id = :id")
 public class Game {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
     private String name;
     private int releaseDate;
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
