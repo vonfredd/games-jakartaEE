@@ -1,8 +1,10 @@
 package org.example.gamesjakartaee.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.example.gamesjakartaee.entity.Game;
 
-public record GameDTO(String name, int releaseDate) {
+public record GameDTO(@NotBlank String name, @PositiveOrZero int releaseDate) {
     public static GameDTO map (Game game){
         return new GameDTO(game.getName(), game.getReleaseDate());
     }
