@@ -27,4 +27,14 @@ public class GameRepository {
         return game.getId();
     }
 
+    @Transactional
+    public Long updateGame(Long id, String name) {
+        Game game = findGameById(id);
+        game.setName(name);
+        return game.getId();
+    }
+
+    private Game findGameById(Long id){
+        return entityManager.find(Game.class, id);
+    }
 }
