@@ -10,13 +10,13 @@ import java.util.List;
 
 @ApplicationScoped
 public class GameService {
-    @Inject
     GameRepository gameRepository;
 
-    public GameService (){
+    public GameService() {
 
     }
 
+    @Inject
     public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
     }
@@ -26,7 +26,7 @@ public class GameService {
     }
 
     public Long insertGame(GameDTO gameDTO) {
-       return gameRepository.insertGame(GameDTO.map(gameDTO));
+        return gameRepository.insertGame(GameDTO.map(gameDTO));
     }
 
     public void updateGame(Long id, String name) {

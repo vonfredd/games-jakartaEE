@@ -15,7 +15,6 @@ import java.util.List;
 @Path("/games")
 public class GameResource {
 
-    @Inject
     private GameService gameService;
 
     public GameResource() {
