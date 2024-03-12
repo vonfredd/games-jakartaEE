@@ -43,7 +43,7 @@ public class GameService {
             throw new NotFoundException();
     }
 
-    public UUID add(GameDTO personDto) {
+    public Long add(GameDTO personDto) {
         return gameRepository.add(GameDTO.map(personDto)).getId();
     }
 
@@ -53,7 +53,7 @@ public class GameService {
 
         if (optionalGame.isPresent()) {
             Game game = optionalGame.get();
-            checkOnNull(game::setName, updateData.name());
+            checkOnNull(game::setTitle, updateData.title());
             checkOnNull(game::setReleaseYear, updateData.releaseYear());
             gameRepository.update(game);
             return Response.ok().build();
