@@ -3,7 +3,6 @@ package org.example.gamesjakartaee.entity;
 import jakarta.persistence.*;
 
 import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @NamedQuery(name = "GameEntity.findAll", query = "SELECT g FROM Game g")
@@ -11,25 +10,25 @@ import java.util.UUID;
 public class Game {
 
     @Id
-    @GeneratedValue
-    private UUID id;
-    private String name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String title;
     private int releaseYear;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public int getReleaseYear() {
