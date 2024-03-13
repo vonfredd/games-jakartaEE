@@ -35,7 +35,7 @@ public class GameResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{id}")
-    public GameDTO one(@PathParam("id") UUID id) {
+    public GameDTO one(@PathParam("id") Long id) {
         return gameService.one(id);
     }
 
@@ -53,8 +53,20 @@ public class GameResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
-    public Response update(UUID id, @Valid GameDTO updateInfo) {
+    public Response update(Long id, @Valid GameDTO updateInfo) {
         gameService.update(id, updateInfo);
         return Response.ok().build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    public Response remove(@PathParam("id") String id){
+        try {
+            gameService.remove(id);
+            return Response.ok().build();
+        }catch (Exception e){
+            String response = e.getMessage();
+            return Response.status(404,response).build();
+        }
     }
 }

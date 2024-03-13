@@ -36,7 +36,7 @@ public class GameService {
                 LocalDateTime.now());
     }
 
-    public GameDTO one(UUID id) {
+    public GameDTO one(Long id) {
         Optional<Game> game = gameRepository.findById(id);
         if (game.isPresent()) {
             return GameDTO.map(game.get());
@@ -50,7 +50,7 @@ public class GameService {
         gameRepository.add(GameDTO.map(gameDTO));
     }
 
-    public Response update(UUID id, GameDTO updateData) {
+    public Response update(Long id, GameDTO updateData) {
 
         Optional<Game> optionalGame = gameRepository.findById(id);
 
@@ -66,5 +66,13 @@ public class GameService {
 
     private <T> void checkOnNull(Consumer<T> consumer, T value) {
         if (value != null) consumer.accept(value);
+    }
+
+    public void remove(String id) {
+        try{
+            Long gameId = Long.parseLong(id);
+            gameRepository.remove(gameId);
+        }catch (NotFoundException e){
+        }
     }
 }

@@ -4,11 +4,12 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.entity.Game;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @ApplicationScoped
 public class GameRepository {
@@ -32,9 +33,18 @@ public class GameRepository {
         return game;
     }
 
-    public Optional<Game> findById(UUID id) {
+    public Optional<Game> findById(Long id) {
         Game game = entityManager.find(Game.class, id);
         return Optional.ofNullable(game);
     }
 
+    @Transactional
+    public void remove(Long id){
+        Optional<Game> optionalGame = findById(id);
+        if (optionalGame.isPresent()){
+            Game game = optionalGame.get();
+            entityManager.remove(game);
+        }else
+            throw new NotFoundException("No such id exists", Response.status(404).build());
+    }
 }
