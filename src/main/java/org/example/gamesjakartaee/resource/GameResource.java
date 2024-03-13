@@ -42,14 +42,18 @@ public class GameResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid GameDTO gameDTO) {
-        gameService.add(gameDTO);
-        return Response.status(201).build();
+        try{
+            gameService.add(gameDTO);
+        }catch (WebApplicationException e){
+            return Response.status(400).build();
+        }
+            return Response.status(201).build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
-    public Response update(UUID id, GameDTO updateInfo) {
+    public Response update(UUID id, @Valid GameDTO updateInfo) {
         gameService.update(id, updateInfo);
         return Response.ok().build();
     }

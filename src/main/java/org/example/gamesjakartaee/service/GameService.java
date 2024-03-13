@@ -4,6 +4,7 @@ package org.example.gamesjakartaee.service;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.NotFoundException;
+import jakarta.ws.rs.WebApplicationException;
 import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.dto.Games;
@@ -43,8 +44,10 @@ public class GameService {
             throw new NotFoundException();
     }
 
-    public Long add(GameDTO personDto) {
-        return gameRepository.add(GameDTO.map(personDto)).getId();
+    public void add(GameDTO gameDTO) {
+        if (gameDTO == null)
+            throw new WebApplicationException(404);
+        gameRepository.add(GameDTO.map(gameDTO));
     }
 
     public Response update(UUID id, GameDTO updateData) {
