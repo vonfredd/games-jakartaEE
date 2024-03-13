@@ -15,7 +15,7 @@ DB_CONNECTION_URL=jdbc:mysql://db:3306/${DB_NAME}
 - Open IDE
 - Clone this repository
 - Start docker
-- Run `docker-compose up`
+- Run `docker-compose up --build`
 - Go to http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games
 - Use an API dev/testing tool (e.g Postman) to try the applications different endpoints
 
