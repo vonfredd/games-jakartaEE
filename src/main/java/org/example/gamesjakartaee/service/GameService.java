@@ -13,7 +13,6 @@ import org.example.gamesjakartaee.repository.GameRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Consumer;
 
 @ApplicationScoped
@@ -68,11 +67,8 @@ public class GameService {
         if (value != null) consumer.accept(value);
     }
 
-    public void remove(String id) {
-        try{
+    public void remove(String id) throws NumberFormatException{
             Long gameId = Long.parseLong(id);
             gameRepository.remove(gameId);
-        }catch (NotFoundException e){
-        }
     }
 }

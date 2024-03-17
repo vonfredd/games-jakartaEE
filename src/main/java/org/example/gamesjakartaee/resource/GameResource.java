@@ -7,11 +7,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.dto.Games;
-import org.example.gamesjakartaee.entity.Game;
 import org.example.gamesjakartaee.service.GameService;
-
-import java.net.URI;
-import java.util.UUID;
 
 @Path("/games")
 public class GameResource {
@@ -42,31 +38,31 @@ public class GameResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(@Valid GameDTO gameDTO) {
-        try{
+        try {
             gameService.add(gameDTO);
-        }catch (WebApplicationException e){
+        } catch (WebApplicationException e) {
             return Response.status(400).build();
         }
-            return Response.status(201).build();
+        return Response.status(201).build();
     }
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces({MediaType.APPLICATION_JSON})
     public Response update(Long id, @Valid GameDTO updateInfo) {
-        gameService.update(id, updateInfo);
-        return Response.ok().build();
+        return gameService.update(id, updateInfo);
     }
 
     @DELETE
     @Path("{id}")
-    public Response remove(@PathParam("id") String id){
+    public Response remove(@PathParam("id") String id) {
         try {
             gameService.remove(id);
             return Response.ok().build();
-        }catch (Exception e){
-            String response = e.getMessage();
-            return Response.status(404,response).build();
+        } catch (NotFoundException e) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        } catch (NumberFormatException e) {
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
     }
 }
