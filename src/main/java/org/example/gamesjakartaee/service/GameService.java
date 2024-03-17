@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.dto.GameDTO;
 import org.example.gamesjakartaee.dto.Games;
 import org.example.gamesjakartaee.entity.Game;
+import org.example.gamesjakartaee.exception.NumberFormatException;
 import org.example.gamesjakartaee.repository.GameRepository;
 
 import java.time.LocalDateTime;
@@ -67,8 +68,12 @@ public class GameService {
         if (value != null) consumer.accept(value);
     }
 
-    public void remove(String id) throws NumberFormatException{
+    public void remove(String id) {
+        try {
             Long gameId = Long.parseLong(id);
             gameRepository.remove(gameId);
+        } catch (java.lang.NumberFormatException e) {
+            throw new NumberFormatException("Wrong numeric format of ID!");
+        }
     }
 }

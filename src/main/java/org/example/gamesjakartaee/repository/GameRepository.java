@@ -4,9 +4,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
-import jakarta.ws.rs.NotFoundException;
-import jakarta.ws.rs.core.Response;
 import org.example.gamesjakartaee.entity.Game;
+import org.example.gamesjakartaee.exception.NotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +44,6 @@ public class GameRepository {
             Game game = optionalGame.get();
             entityManager.remove(game);
         }else
-            throw new NotFoundException("No such id exists", Response.status(404).build());
+            throw new NotFoundException("No such ID.");
     }
 }

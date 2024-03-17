@@ -56,13 +56,7 @@ public class GameResource {
     @DELETE
     @Path("{id}")
     public Response remove(@PathParam("id") String id) {
-        try {
             gameService.remove(id);
             return Response.ok().build();
-        } catch (NotFoundException e) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        } catch (NumberFormatException e) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
-        }
     }
 }
