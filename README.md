@@ -6,8 +6,8 @@
 ## You need an .env file in root with this data
 ```
 DB_NAME: db
-DB_USERNAME: your-database-access-username
-DB_PASSWORD: your-database-access--password
+DB_USERNAME: root
+DB_PASSWORD: password
 DB_CONNECTION_URL=jdbc:mysql://db:3306/${DB_NAME}
 ```
 
@@ -15,6 +15,7 @@ DB_CONNECTION_URL=jdbc:mysql://db:3306/${DB_NAME}
 - Open IDE
 - Clone this repository
 - Start docker
+- Run `mvn package -DskipTests`
 - Run `docker-compose up --build`
 - Go to http://localhost:8080/games-jakartaEE-1.0-SNAPSHOT/api/games
 - Use an API dev/testing tool (e.g Postman) to try the applications different endpoints
